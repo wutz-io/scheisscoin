@@ -4,8 +4,10 @@
   "description": "A valueless fun token on Solana Mainnet. No monetary value.",
   "image": "https://kack.wutz.io/scheisscoin-token.png",
   "external_url": "https://kack.wutz.io/",
+  "mint": "ahDiwHso63aS6iubQBfjrvdqgZKDeqmN8dCwYjiNJQU",
   "attributes": [
     { "trait_type": "Network", "value": "Solana Mainnet" },
+    { "trait_type": "Mint address", "value": "ahDiwHso63aS6iubQBfjrvdqgZKDeqmN8dCwYjiNJQU" },
     { "trait_type": "Purpose", "value": "Fun and learning" },
     { "trait_type": "Value notice", "value": "No monetary value" }
   ],

@@ -33,9 +33,13 @@ The large displayed supply is intentional. The raw value is within Solana's `u64
 
 ## Post-mint record
 
-Not minted yet. This section is updated only with actual Mainnet RPC results.
+Verified through Mainnet RPC after the mint transaction.
 
-- Mint address: pending
-- Owner address: pending
-- Owner token account: pending
-- Explorer: pending
+- Mint address: `ahDiwHso63aS6iubQBfjrvdqgZKDeqmN8dCwYjiNJQU`
+- Owner address: `F3SgMhCTz4y9fLq45Wxw6V4C5RoyHhp9qJFJzfgZETmB`
+- Owner token account: `DUgVqBKiv8xMmzknQCvvBC2E8JupLdNkCbDERfrZVUto`
+- Explorer: <https://explorer.solana.com/address/ahDiwHso63aS6iubQBfjrvdqgZKDeqmN8dCwYjiNJQU>
+- Program: Token-2022 (`TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb`)
+- Raw supply / decimals: `100000000000000` / `0`
+- Scaled UI multiplier: `1000000000` (immutable; clients without the extension show the raw amount)
+- Mint authority: `null`; freeze authority: `null`; metadata update authority: `null`; MetadataPointer authority: `null`; scaled-UI authority: zero public key (`11111111111111111111111111111111`, the Token-2022 representation of disabled).

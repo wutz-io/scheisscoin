@@ -8,6 +8,7 @@ import {
   Connection,
   Keypair,
   LAMPORTS_PER_SOL,
+  PublicKey,
   SystemProgram,
   Transaction,
   sendAndConfirmTransaction,
@@ -30,6 +31,7 @@ import {
   getExtensionData,
   getMint,
   getMintLen,
+  getMetadataPointerState,
   getScaledUiAmountConfig,
 } from '@solana/spl-token';
 import {
@@ -125,6 +127,7 @@ async function simulateOrThrow(connection, transaction, signers, label) {
 async function verifyMint(connection, mint, tokenAccount, owner) {
   const mintInfo = await getMint(connection, mint, 'confirmed', TOKEN_2022_PROGRAM_ID);
   const multiplier = getScaledUiAmountConfig(mintInfo);
+  const metadataPointer = getMetadataPointerState(mintInfo);
   const tokenAccountInfo = await connection.getTokenAccountBalance(tokenAccount, 'confirmed');
   const metadataBytes = getExtensionData(ExtensionType.TokenMetadata, mintInfo.tlvData);
   const metadata = metadataBytes ? unpackTokenMetadata(metadataBytes) : null;
@@ -134,8 +137,10 @@ async function verifyMint(connection, mint, tokenAccount, owner) {
   if (mintInfo.mintAuthority !== null) throw new Error('Verification failed: mint authority remains enabled.');
   if (mintInfo.freezeAuthority !== null) throw new Error('Verification failed: freeze authority is set.');
   if (!multiplier || multiplier.multiplier !== UI_MULTIPLIER || multiplier.newMultiplier !== UI_MULTIPLIER) throw new Error('Verification failed: ScaledUiAmountConfig multiplier mismatch.');
+  if (!multiplier.authority.equals(PublicKey.default)) throw new Error('Verification failed: ScaledUiAmountConfig authority remains enabled.');
+  if (!metadataPointer || metadataPointer.authority !== null || !metadataPointer.metadataAddress?.equals(mint)) throw new Error('Verification failed: MetadataPointer is not immutable or does not point to the mint.');
   if (tokenAccountInfo.value.amount !== RAW_SUPPLY.toString()) throw new Error('Verification failed: owner token account does not hold the full raw supply.');
-  if (!metadata || metadata.name !== 'Scheisscoin' || metadata.symbol !== 'KACK') throw new Error('Verification failed: Token-2022 metadata is missing or incorrect.');
+  if (!metadata || metadata.name !== 'Scheisscoin' || metadata.symbol !== 'KACK' || metadata.updateAuthority !== undefined) throw new Error('Verification failed: Token-2022 metadata is missing, mutable, or incorrect.');
 
   return { mintInfo, multiplier, metadata, owner };
 }

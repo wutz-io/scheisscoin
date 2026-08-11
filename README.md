@@ -22,6 +22,13 @@ The static Astro site is published through GitHub Pages at <https://kack.wutz.io
 
 The `ScaledUiAmountConfig` multiplier changes only what compatible clients display; it does not create more tokens or alter token-account balances. Incompatible clients may display only the raw supply. The script initializes the multiplier without an update authority, making it immutable.
 
+## Live Mainnet record
+
+- Mint: [`ahDiwHso63aS6iubQBfjrvdqgZKDeqmN8dCwYjiNJQU`](https://explorer.solana.com/address/ahDiwHso63aS6iubQBfjrvdqgZKDeqmN8dCwYjiNJQU)
+- Owner: `F3SgMhCTz4y9fLq45Wxw6V4C5RoyHhp9qJFJzfgZETmB`
+- Owner token account: `DUgVqBKiv8xMmzknQCvvBC2E8JupLdNkCbDERfrZVUto`
+- Verified: Token-2022; raw supply `100000000000000`; decimals `0`; scaled UI multiplier `1000000000`; mint authority `null`; freeze authority `null`; immutable metadata and pointer.
+
 ## Architecture
 
 - `src/pages/index.astro` — static, responsive public site and EN/DE switch

@@ -1,7 +1,8 @@
 ---
 import siteCss from '../styles/site.css?raw';
 
-const explorerUrl = 'https://explorer.solana.com/';
+const mintAddress = 'ahDiwHso63aS6iubQBfjrvdqgZKDeqmN8dCwYjiNJQU';
+const explorerUrl = `https://explorer.solana.com/address/${mintAddress}`;
 const sourceUrl = 'https://github.com/wutz-io/scheisscoin';
 const baseUrl = './';
 const languages = ['en', 'de'] as const;
@@ -30,8 +31,8 @@ const copy = {
     lore: [['August 11, 2026', 'PROTOCOL', 'The supply was very reasonably set to 100 sextillion', 'After several seconds of careful planning, the tokenomics are settled: a lot of $KACK, no price and no artificial scarcity. The mint authority will be disabled after minting.'], ['December 31, 2025', 'FICTIONAL LORE', 'Proof of Scheiss reaches theoretical maturity', 'The research year ended with a breakthrough: a meme needs no consensus mechanism when it is just an intentionally useless token.'], ['May 17, 2025', 'FICTIONAL LORE', 'Community unanimously decides nothing', 'The first governance call that never happened successfully avoided roadmaps, Discord moderation and ten-tier ambassador programs.'], ['April 1, 2024', 'FICTIONAL LORE', 'Scheisspaper v0.0 published and immediately ignored', "The original concept introduced utility, staking and revolutionary AI. Then all three terms were deleted. That was the year's most important technical upgrade."]],
     event: 'Community Event #000',
     airdropTitle: 'The first $KACK airdrop will happen eventually.',
-    airdropText: 'No token has been minted yet. Once the Mainnet mint exists, $KACK can be distributed manually and free of charge to Solana Mainnet addresses. There is no registration and no paid participation.',
-    status: 'Status', statusValue: 'PREPARING MAINNET', statusNote: 'Mint address follows after deployment',
+    airdropText: 'The Mainnet mint is live. $KACK may be distributed manually and free of charge to Solana Mainnet addresses. There is no registration, purchase path, or paid participation.',
+    status: 'Status', statusValue: 'LIVE ON MAINNET', statusNote: `Mint: ${mintAddress}`,
     disclaimerTitle: 'A serious note:',
     disclaimer: '$KACK is a technical fun project on Solana Mainnet. The token has no guaranteed or expected monetary value, grants no rights and is not sold. Do not send SOL or money to anyone offering $KACK.',
     footer: 'Made in Munich. No roadmap. No Discord. No nonsense.', source: 'Source code ↗',
@@ -59,8 +60,8 @@ const copy = {
     lore: [['11. August 2026', 'PROTOKOLL', 'Der Supply wurde völlig vernünftig auf 100 Trilliarden festgelegt', 'Nach mehreren Sekunden sorgfältiger Planung steht die Tokenomics: sehr viele $KACK, kein Preis und keine künstliche Knappheit. Nach dem Mint wird die Mint-Authority abgeschaltet.'], ['31. Dezember 2025', 'FIKTIVE LORE', 'Proof of Scheiss erreicht die theoretische Marktreife', 'Das Forschungsjahr endete mit einer bahnbrechenden Erkenntnis: Ein Meme braucht keinen Konsensmechanismus, wenn es nur ein absichtlich nutzloser Token ist.'], ['17. Mai 2025', 'FIKTIVE LORE', 'Community beschließt einstimmig, nichts zu entscheiden', 'Beim ersten nicht stattgefundenen Governance-Call wurde erfolgreich auf Roadmaps, Discord-Moderation und zehnstufige Ambassador-Programme verzichtet.'], ['1. April 2024', 'FIKTIVE LORE', 'Scheisspaper v0.0 veröffentlicht und sofort ignoriert', 'Das ursprüngliche Konzept führte Utility, Staking und revolutionäre KI ein. Danach wurden alle drei Begriffe gestrichen. Das war das wichtigste technische Upgrade des Jahres.']],
     event: 'Community Event #000',
     airdropTitle: 'Der erste $KACK-Airdrop kommt irgendwann.',
-    airdropText: 'Noch wurde kein Token geprägt. Sobald der Mainnet-Mint existiert, können $KACK kostenlos und manuell an Solana-Mainnet-Adressen verteilt werden. Es gibt keine Registrierung und keine bezahlte Teilnahme.',
-    status: 'Status', statusValue: 'MAINNET WIRD VORBEREITET', statusNote: 'Mint-Adresse folgt nach Deployment',
+    airdropText: 'Der Mainnet-Mint ist live. $KACK kann kostenlos und manuell an Solana-Mainnet-Adressen verteilt werden. Es gibt keine Registrierung, keinen Kaufweg und keine bezahlte Teilnahme.',
+    status: 'Status', statusValue: 'LIVE AUF MAINNET', statusNote: `Mint: ${mintAddress}`,
     disclaimerTitle: 'Ernst gemeinter Hinweis:',
     disclaimer: '$KACK ist ein technisches Spaßprojekt auf Solana Mainnet. Der Token besitzt keinen zugesicherten oder erwarteten Geldwert, gewährt keine Rechte und wird nicht verkauft. Sende kein SOL und kein Geld an Personen, die $KACK anbieten.',
     footer: 'Made in München. Keine Roadmap. Kein Discord. Kein Quatsch.', source: 'Quellcode ↗',
