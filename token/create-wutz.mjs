@@ -91,6 +91,14 @@ function assertDevnet(connection) {
   if (connection.rpcEndpoint !== DEVNET_RPC) throw new Error('Refusing to use a non-Devnet RPC endpoint.');
 }
 
+async function simulateOrThrow(connection, transaction, signers, label) {
+  const simulation = await connection.simulateTransaction(transaction, signers);
+  if (simulation.value.err) {
+    throw new Error(`${label} simulation failed: ${JSON.stringify(simulation.value.err)}`);
+  }
+  console.log(`${label} simulation succeeded.`);
+}
+
 async function verifyMint(connection, mint, tokenAccount, owner) {
   const mintInfo = await getMint(connection, mint, 'confirmed', TOKEN_2022_PROGRAM_ID);
   const multiplier = getScaledUiAmountConfig(mintInfo);
@@ -171,6 +179,7 @@ async function main() {
       uri: metadata.uri,
     }),
   );
+  await simulateOrThrow(connection, createMint, [owner, mint], 'Mint creation');
   await sendAndConfirmTransaction(connection, createMint, [owner, mint], { commitment: 'confirmed' });
 
   const issueAndLock = new Transaction().add(
@@ -206,6 +215,7 @@ async function main() {
       TOKEN_2022_PROGRAM_ID,
     ),
   );
+  await simulateOrThrow(connection, issueAndLock, [owner], 'Issue and authority lock');
   await sendAndConfirmTransaction(connection, issueAndLock, [owner], { commitment: 'confirmed' });
 
   await verifyMint(connection, mint.publicKey, ownerTokenAccount, owner.publicKey);
