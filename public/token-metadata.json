@@ -1,13 +1,13 @@
 {
   "name": "Scheisscoin",
   "symbol": "KACK",
-  "description": "A valueless fun and learning token on Solana Devnet. Devnet only / no monetary value.",
+  "description": "A valueless fun token on Solana Mainnet. No monetary value.",
   "image": "https://kack.wutz.io/scheisscoin-token.png",
   "external_url": "https://kack.wutz.io/",
   "attributes": [
-    { "trait_type": "Network", "value": "Solana Devnet" },
+    { "trait_type": "Network", "value": "Solana Mainnet" },
     { "trait_type": "Purpose", "value": "Fun and learning" },
-    { "trait_type": "Value notice", "value": "Devnet only / no monetary value" }
+    { "trait_type": "Value notice", "value": "No monetary value" }
   ],
   "properties": {
     "category": "image",

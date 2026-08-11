@@ -14,6 +14,7 @@ import {
 } from '@solana/web3.js';
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
+  ACCOUNT_SIZE,
   AuthorityType,
   ExtensionType,
   TOKEN_2022_PROGRAM_ID,
@@ -36,7 +37,7 @@ import {
   unpack as unpackTokenMetadata,
 } from '@solana/spl-token-metadata';
 
-export const DEVNET_RPC = 'https://api.devnet.solana.com';
+export const MAINNET_RPC = 'https://api.mainnet-beta.solana.com';
 export const RAW_SUPPLY = 100_000_000_000_000n;
 export const DECIMALS = 0;
 export const UI_MULTIPLIER = 1_000_000_000;
@@ -73,28 +74,41 @@ async function confirmOwner(owner) {
   }
   const rl = createInterface({ input, output });
   try {
-    const confirmation = await rl.question(`\nNo transaction has been sent. To mint KACK on Solana Devnet, retype this owner address exactly:\n${owner}\n> `);
+    const confirmation = await rl.question(`\nNo transaction has been sent. To mint KACK on Solana Mainnet, retype this owner address exactly:\n${owner}\n> `);
     if (confirmation.trim() !== owner) throw new Error('Owner address was not confirmed. No transaction was sent.');
   } finally {
     rl.close();
   }
 }
 
-async function ensureDevnetFunds(connection, owner) {
-  const minimum = 0.02 * LAMPORTS_PER_SOL;
+async function ensureMainnetFunds(connection, owner, minimum) {
   const balance = await connection.getBalance(owner, 'confirmed');
   if (balance >= minimum) return balance;
-
-  console.log('Requesting 1 free Devnet SOL only for rent and transaction fees…');
-  const signature = await connection.requestAirdrop(owner, LAMPORTS_PER_SOL);
-  const latest = await connection.getLatestBlockhash('confirmed');
-  const result = await connection.confirmTransaction({ signature, ...latest }, 'confirmed');
-  if (result.value.err) throw new Error(`Devnet airdrop failed: ${JSON.stringify(result.value.err)}`);
-  return connection.getBalance(owner, 'confirmed');
+  throw new Error(`Insufficient Mainnet SOL. The owner has ${balance / LAMPORTS_PER_SOL} SOL; at least ${minimum / LAMPORTS_PER_SOL} SOL is required for mint and ATA rent plus transaction-fee buffer. Send Mainnet SOL to the printed public owner address, then rerun. No transaction was sent.`);
 }
 
-function assertDevnet(connection) {
-  if (connection.rpcEndpoint !== DEVNET_RPC) throw new Error('Refusing to use a non-Devnet RPC endpoint.');
+async function assertPublishedMetadata() {
+  let response;
+  try {
+    response = await fetch(METADATA_URI, { redirect: 'error' });
+  } catch {
+    throw new Error(`Token metadata is not reachable at ${METADATA_URI}. Fix the public website before minting. No transaction was sent.`);
+  }
+  if (!response.ok) throw new Error(`Token metadata returned HTTP ${response.status} at ${METADATA_URI}. No transaction was sent.`);
+
+  let metadata;
+  try {
+    metadata = await response.json();
+  } catch {
+    throw new Error(`Token metadata at ${METADATA_URI} is not valid JSON. No transaction was sent.`);
+  }
+  if (metadata.name !== 'Scheisscoin' || metadata.symbol !== 'KACK') {
+    throw new Error('Token metadata does not identify Scheisscoin / KACK. No transaction was sent.');
+  }
+}
+
+function assertMainnet(connection) {
+  if (connection.rpcEndpoint !== MAINNET_RPC) throw new Error('Refusing to use a non-Mainnet RPC endpoint.');
 }
 
 async function simulateOrThrow(connection, transaction, signers, label) {
@@ -124,23 +138,10 @@ async function verifyMint(connection, mint, tokenAccount, owner) {
 }
 
 async function main() {
-  const connection = new Connection(DEVNET_RPC, 'confirmed');
-  assertDevnet(connection);
+  const connection = new Connection(MAINNET_RPC, 'confirmed');
+  assertMainnet(connection);
   const owner = await loadOwnerKeypair();
   const ownerAddress = owner.publicKey.toBase58();
-
-  console.log('Scheisscoin Token-2022 Devnet mint');
-  console.log(`RPC: ${DEVNET_RPC}`);
-  console.log(`Owner address: ${ownerAddress}`);
-  console.log(`Raw supply: ${RAW_SUPPLY}`);
-  console.log(`Decimals: ${DECIMALS}`);
-  console.log(`Scaled UI multiplier: ${UI_MULTIPLIER}`);
-  console.log(`Displayed supply for compatible clients: ${DISPLAYED_SUPPLY} KACK`);
-  console.log('The multiplier authority and metadata pointer authority will be disabled. No Freeze Authority is set.');
-
-  await confirmOwner(ownerAddress);
-  await ensureDevnetFunds(connection, owner.publicKey);
-
   const mint = Keypair.generate();
   const metadata = {
     updateAuthority: owner.publicKey,
@@ -148,13 +149,31 @@ async function main() {
     name: 'Scheisscoin',
     symbol: 'KACK',
     uri: METADATA_URI,
-    additionalMetadata: [['notice', 'Devnet only / no monetary value']],
+    additionalMetadata: [['notice', 'Mainnet / no monetary value']],
   };
   const mintLength = getMintLen(
     [ExtensionType.MetadataPointer, ExtensionType.ScaledUiAmountConfig],
     { [ExtensionType.TokenMetadata]: packTokenMetadata(metadata).length },
   );
-  const rent = await connection.getMinimumBalanceForRentExemption(mintLength, 'confirmed');
+  const mintRent = await connection.getMinimumBalanceForRentExemption(mintLength, 'confirmed');
+  const tokenAccountRent = await connection.getMinimumBalanceForRentExemption(ACCOUNT_SIZE, 'confirmed');
+  const feeBuffer = 50_000;
+  const requiredLamports = mintRent + tokenAccountRent + feeBuffer;
+
+  console.log('Scheisscoin Token-2022 Mainnet mint');
+  console.log(`RPC: ${MAINNET_RPC}`);
+  console.log(`Owner address: ${ownerAddress}`);
+  console.log(`Raw supply: ${RAW_SUPPLY}`);
+  console.log(`Decimals: ${DECIMALS}`);
+  console.log(`Scaled UI multiplier: ${UI_MULTIPLIER}`);
+  console.log(`Displayed supply for compatible clients: ${DISPLAYED_SUPPLY} KACK`);
+  console.log('The multiplier authority and metadata pointer authority will be disabled. No Freeze Authority is set.');
+  console.log(`Required Mainnet SOL (rent plus fee buffer): ${requiredLamports / LAMPORTS_PER_SOL}`);
+
+  await assertPublishedMetadata();
+  await ensureMainnetFunds(connection, owner.publicKey, requiredLamports);
+  await confirmOwner(ownerAddress);
+
   const ownerTokenAccount = getAssociatedTokenAddressSync(
     mint.publicKey,
     owner.publicKey,
@@ -168,7 +187,7 @@ async function main() {
       fromPubkey: owner.publicKey,
       newAccountPubkey: mint.publicKey,
       space: mintLength,
-      lamports: rent,
+      lamports: mintRent,
       programId: TOKEN_2022_PROGRAM_ID,
     }),
     createInitializeMetadataPointerInstruction(mint.publicKey, null, mint.publicKey, TOKEN_2022_PROGRAM_ID),
@@ -225,12 +244,12 @@ async function main() {
   await sendAndConfirmTransaction(connection, issueAndLock, [owner], { commitment: 'confirmed' });
 
   await verifyMint(connection, mint.publicKey, ownerTokenAccount, owner.publicKey);
-  const explorer = `https://explorer.solana.com/address/${mint.publicKey.toBase58()}?cluster=devnet`;
+  const explorer = `https://explorer.solana.com/address/${mint.publicKey.toBase58()}`;
   console.log(`\nMint address: ${mint.publicKey.toBase58()}`);
   console.log(`Owner address: ${ownerAddress}`);
   console.log(`Token account: ${ownerTokenAccount.toBase58()}`);
-  console.log(`Devnet Explorer: ${explorer}`);
-  console.log('Verified: Token-2022, exact raw supply, 0 decimals, multiplier 1000000000, mint authority null, freeze authority null, immutable metadata.');
+  console.log(`Mainnet Explorer: ${explorer}`);
+  console.log('Verified: Mainnet Token-2022, exact raw supply, 0 decimals, multiplier 1000000000, mint authority null, freeze authority null, immutable metadata.');
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

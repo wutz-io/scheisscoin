@@ -2,13 +2,13 @@
 
 ## Scope
 
-Scheisscoin (`KACK`) is a Solana **Devnet-only** Token-2022 learning artifact. It has no monetary value and is not sold, listed, pooled, traded, or connected to any wallet interface.
+Scheisscoin (`KACK`) is a Solana **Mainnet** Token-2022 fun token. It has no monetary value and is not sold, listed, pooled, traded, or connected to any wallet interface.
 
 ## Mint configuration
 
 | Field | Value |
 | --- | --- |
-| RPC endpoint | `https://api.devnet.solana.com` only |
+| RPC endpoint | `https://api.mainnet-beta.solana.com` only |
 | Program | Token-2022 |
 | Raw supply | `100000000000000` |
 | Decimals | `0` |
@@ -25,14 +25,14 @@ The large displayed supply is intentional. The raw value is within Solana's `u64
 1. Publish the GitHub Pages site and check the metadata and token-image URLs.
 2. Ensure an existing local owner keypair is available at `SOLANA_KEYPAIR` or `~/.config/solana/id.json`. Never put that keypair in the repository.
 3. Run `npm run token:create`.
-4. Inspect the printed Devnet RPC endpoint and public owner address, then retype that address exactly to authorize the transaction sequence.
-5. The script requests free Devnet SOL only if the owner balance is insufficient.
+4. Inspect the printed Mainnet RPC endpoint and public owner address, then retype that address exactly to authorize the transaction sequence.
+5. The existing owner wallet must hold enough Mainnet SOL for account rent and transaction fees. The script never requests an airdrop or sends SOL anywhere.
 6. The script atomically creates the extended mint and metadata, then atomically creates the owner ATA, mints the full raw supply, makes metadata immutable, and disables minting.
 7. Record the mint and ATA below only after RPC verification succeeds.
 
 ## Post-mint record
 
-Not minted yet. This section is updated only with actual Devnet RPC results.
+Not minted yet. This section is updated only with actual Mainnet RPC results.
 
 - Mint address: pending
 - Owner address: pending

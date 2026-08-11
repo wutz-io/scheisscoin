@@ -1,6 +1,6 @@
 # Scheisscoin ($KACK)
 
-Scheisscoin is a deliberately valueless fun and learning token project for **Solana Devnet only**. It is not a product, investment, sale, presale, pool, listing, or promise of value. Do not send real SOL or money for KACK.
+Scheisscoin is a deliberately valueless fun token project for **Solana Mainnet**. It is not a product, investment, sale, presale, pool, listing, or promise of value. Mainnet SOL is required only to pay the one-time on-chain account rent and transaction fees; do not send SOL or money to anyone offering KACK.
 
 ## Website
 
@@ -10,7 +10,7 @@ The static Astro site is published through GitHub Pages at <https://kack.wutz.io
 
 | Property | Value |
 | --- | --- |
-| Network | Solana Devnet only |
+| Network | Solana Mainnet |
 | Program | Token-2022 |
 | Name / symbol | Scheisscoin / KACK |
 | Raw supply | `100000000000000` |
@@ -26,7 +26,7 @@ The `ScaledUiAmountConfig` multiplier changes only what compatible clients displ
 
 - `src/pages/index.astro` — static, responsive public site and EN/DE switch
 - `public/` — favicon-derived 1024×1024 token image and off-chain metadata JSON
-- `token/create-scheiss.mjs` — explicit, Devnet-only Token-2022 mint workflow
+- `token/create-scheiss.mjs` — explicit, Mainnet-only Token-2022 mint workflow
 - `.github/workflows/deploy-pages.yml` — GitHub Pages build and deployment
 - `docs/TOKEN.md` — token and mint procedure
 
@@ -45,10 +45,10 @@ npm test
 git diff --check
 ```
 
-## Minting on Devnet
+## Minting on Mainnet
 
-`npm run token:create` uses only `https://api.devnet.solana.com`. It reads an existing owner keypair from `SOLANA_KEYPAIR` or `~/.config/solana/id.json`; it will never silently generate an owner wallet or print secret material. It displays the public owner address and requires that exact address to be retyped immediately before any transaction. If necessary, it asks the Devnet faucet for free Devnet SOL only.
+`npm run token:create` uses only `https://api.mainnet-beta.solana.com`. It reads an existing owner keypair from `SOLANA_KEYPAIR` or `~/.config/solana/id.json`; it will never silently generate an owner wallet or print secret material. It displays the public owner address and requires that exact address to be retyped immediately before any transaction. It never requests a faucet airdrop; the existing owner must hold enough Mainnet SOL for rent and fees.
 
-Before running it, confirm that GitHub Pages has deployed and that `public/token-metadata.json` is publicly reachable. The script creates the Token-2022 mint, MetadataPointer and official in-mint metadata, immutable `ScaledUiAmountConfig`, owner ATA, raw supply, and then disables the mint authority. It verifies the result through Devnet RPC.
+Before running it, confirm that GitHub Pages has deployed and that `public/token-metadata.json` is publicly reachable. The script creates the Token-2022 mint, MetadataPointer and official in-mint metadata, immutable `ScaledUiAmountConfig`, owner ATA, raw supply, and then disables the mint authority. It verifies the result through Mainnet RPC.
 
 See [docs/TOKEN.md](docs/TOKEN.md) for the exact constraints and post-mint record.
