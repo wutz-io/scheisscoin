@@ -35,7 +35,7 @@ const copy = {
     status: 'Status', statusValue: 'LIVE ON MAINNET', statusNote: `Mint: ${mintAddress}`,
     disclaimerTitle: 'A serious note:',
     disclaimer: '$KACK is a technical fun project on Solana Mainnet. The token has no guaranteed or expected monetary value, grants no rights and is not sold. Do not send SOL or money to anyone offering $KACK.',
-    footer: 'Made in Munich. No roadmap. No Discord. No nonsense.', source: 'Source code ↗',
+    memorial: ['RIP Ati', '28.10.1994 – 21.2.2022', 'as long as it takes'], source: 'Source code ↗',
   },
   de: {
     nav: ['Tokenomics', 'Blog', 'Airdrop'],
@@ -64,7 +64,7 @@ const copy = {
     status: 'Status', statusValue: 'LIVE AUF MAINNET', statusNote: `Mint: ${mintAddress}`,
     disclaimerTitle: 'Ernst gemeinter Hinweis:',
     disclaimer: '$KACK ist ein technisches Spaßprojekt auf Solana Mainnet. Der Token besitzt keinen zugesicherten oder erwarteten Geldwert, gewährt keine Rechte und wird nicht verkauft. Sende kein SOL und kein Geld an Personen, die $KACK anbieten.',
-    footer: 'Made in München. Keine Roadmap. Kein Discord. Kein Quatsch.', source: 'Quellcode ↗',
+    memorial: ['RIP Ati', '28.10.1994 – 21.2.2022', 'as long as it takes'], source: 'Quellcode ↗',
   },
 };
 ---
@@ -111,7 +111,7 @@ const copy = {
       {languages.map((language) => { const t = copy[language]; return <section class="disclaimer" data-lang={language}><strong>{t.disclaimerTitle}</strong><p>{t.disclaimer}</p></section>; })}
     </main>
 
-    <footer><a class="brand" href="#top"><img class="brand-icon" src={`${baseUrl}favicon.svg`} alt="" /><span>SCHEISSCOIN</span></a>{languages.map((language) => <p data-lang={language}>{copy[language].footer}</p>)}{languages.map((language) => <a data-lang={language} href={sourceUrl}>{copy[language].source}</a>)}</footer>
+    <footer><a class="brand" href="#top"><img class="brand-icon" src={`${baseUrl}favicon.svg`} alt="" /><span>SCHEISSCOIN</span></a>{languages.map((language) => { const memorial = copy[language].memorial; return <p class="memorial" data-lang={language}><strong>{memorial[0]}</strong><span>{memorial[1]}</span><em>{memorial[2]}</em></p>; })}{languages.map((language) => <a data-lang={language} href={sourceUrl}>{copy[language].source}</a>)}</footer>
 
     <script>
       const buttons = document.querySelectorAll<HTMLButtonElement>('[data-language-button]');

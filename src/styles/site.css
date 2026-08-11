@@ -276,6 +276,9 @@ nav a:hover, footer a:hover { color: var(--yellow); text-decoration: underline; 
 .disclaimer strong { font-size: 13px; }
 .disclaimer p { max-width: 950px; margin: 0; font-size: 12px; line-height: 1.7; }
 footer { padding: 34px clamp(20px, 4vw, 64px); display: flex; align-items: center; justify-content: space-between; gap: 30px; background: var(--ink); color: white; font: 12px var(--font-mono); }
+.memorial { display: flex; align-items: baseline; justify-content: center; gap: 9px; margin: 0; text-align: center; }
+.memorial strong { color: var(--pink); }
+.memorial em { color: var(--yellow); }
 
 @media (max-width: 980px) {
   nav { display: none; }
@@ -317,6 +320,7 @@ footer { padding: 34px clamp(20px, 4vw, 64px); display: flex; align-items: cente
   .drop-card { padding: 26px; box-shadow: 8px 8px 0 var(--yellow), 14px 14px 0 var(--pink); }
   .disclaimer { grid-template-columns: 1fr; gap: 12px; }
   footer { align-items: flex-start; flex-direction: column; }
+  .memorial { align-items: flex-start; flex-direction: column; gap: 3px; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
