@@ -65,6 +65,12 @@ async function loadOwnerKeypair() {
 }
 
 async function confirmOwner(owner) {
+  const automatedConfirmation = process.env.WUTZ_OWNER_CONFIRM;
+  if (automatedConfirmation !== undefined) {
+    if (automatedConfirmation.trim() !== owner) throw new Error('Owner address was not confirmed. No transaction was sent.');
+    console.log('Owner address confirmed through the explicit automation confirmation.');
+    return;
+  }
   const rl = createInterface({ input, output });
   try {
     const confirmation = await rl.question(`\nNo transaction has been sent. To mint WUTZ on Solana Devnet, retype this owner address exactly:\n${owner}\n> `);
