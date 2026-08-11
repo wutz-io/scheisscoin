@@ -88,7 +88,7 @@ nav a:hover, footer a:hover { color: var(--yellow); text-decoration: underline; 
   position: relative;
   isolation: isolate;
   background-color: var(--cyan);
-  background-image: url("/wutz-acid-background.webp");
+  background-image: url("./wutz-acid-background.webp");
   background-size: 1150px auto;
   background-position: center;
   image-rendering: pixelated;
@@ -258,7 +258,7 @@ nav a:hover, footer a:hover { color: var(--yellow); text-decoration: underline; 
 
 .airdrop {
   background-color: var(--cyan);
-  background-image: url("/wutz-acid-background.webp");
+  background-image: url("./wutz-acid-background.webp");
   background-size: 900px auto;
   image-rendering: pixelated;
 }

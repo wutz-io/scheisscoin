@@ -1,9 +1,9 @@
 ---
-import '../styles/site.css';
+import siteCss from '../styles/site.css?raw';
 
 const explorerUrl = 'https://explorer.solana.com/?cluster=devnet';
 const sourceUrl = 'https://github.com/wutz-io/wutzcoin';
-const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const baseUrl = './';
 const languages = ['en', 'de'] as const;
 
 const copy = {
@@ -77,6 +77,7 @@ const copy = {
     <meta name="theme-color" content="#0a0014" />
     <link rel="icon" href={`${baseUrl}favicon.svg`} type="image/svg+xml" />
     <title>Wutzcoin — Much Wutz. Zero Value.</title>
+    <style is:inline set:html={siteCss}></style>
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
