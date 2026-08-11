@@ -1,0 +1,40 @@
+# Wutzcoin token specification
+
+## Scope
+
+Wutzcoin (`WUTZ`) is a Solana **Devnet-only** Token-2022 learning artifact. It has no monetary value and is not sold, listed, pooled, traded, or connected to any wallet interface.
+
+## Mint configuration
+
+| Field | Value |
+| --- | --- |
+| RPC endpoint | `https://api.devnet.solana.com` only |
+| Program | Token-2022 |
+| Raw supply | `100000000000000` |
+| Decimals | `0` |
+| Scaled UI multiplier | `1000000000` |
+| Displayed supply | `100000000000000000000000 WUTZ` |
+| Metadata | Token-2022 MetadataPointer plus in-mint Token Metadata |
+| Freeze authority | `null` from mint creation |
+| Mint authority | Set to `null` after the one-time issue |
+
+The large displayed supply is intentional. The raw value is within Solana's `u64` limit; Token-2022's `ScaledUiAmountConfig` lets compatible clients apply a cosmetic multiplier. It does not mint, distribute, or create additional tokens. Clients without the extension can show the raw supply only. The configuration deliberately has no multiplier-update authority, so the multiplier cannot change.
+
+## Controlled mint procedure
+
+1. Publish the GitHub Pages site and check the metadata and token-image URLs.
+2. Ensure an existing local owner keypair is available at `SOLANA_KEYPAIR` or `~/.config/solana/id.json`. Never put that keypair in the repository.
+3. Run `npm run token:create`.
+4. Inspect the printed Devnet RPC endpoint and public owner address, then retype that address exactly to authorize the transaction sequence.
+5. The script requests free Devnet SOL only if the owner balance is insufficient.
+6. The script atomically creates the extended mint and metadata, then atomically creates the owner ATA, mints the full raw supply, makes metadata immutable, and disables minting.
+7. Record the mint and ATA below only after RPC verification succeeds.
+
+## Post-mint record
+
+Not minted yet. This section is updated only with actual Devnet RPC results.
+
+- Mint address: pending
+- Owner address: pending
+- Owner token account: pending
+- Explorer: pending

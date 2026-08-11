@@ -1,0 +1,25 @@
+{
+  "name": "wutzcoin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wutzcoin (WUTZ), a valueless Solana Devnet learning token and static website.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "test": "node --test test/*.test.mjs",
+    "token:create": "node token/create-wutz.mjs"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/node": "^22.10.2",
+    "astro": "^5.1.1",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@solana/spl-token": "^0.4.13",
+    "@solana/spl-token-metadata": "^0.1.6",
+    "@solana/web3.js": "^1.98.0"
+  }
+}
