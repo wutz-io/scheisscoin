@@ -41,7 +41,7 @@ export const RAW_SUPPLY = 100_000_000_000_000n;
 export const DECIMALS = 0;
 export const UI_MULTIPLIER = 1_000_000_000;
 export const DISPLAYED_SUPPLY = RAW_SUPPLY * BigInt(UI_MULTIPLIER);
-export const METADATA_URI = 'https://wutz-io.github.io/wutzcoin/token-metadata.json';
+export const METADATA_URI = 'https://kack.wutz.io/token-metadata.json';
 
 function keypairPath() {
   return process.env.SOLANA_KEYPAIR || join(homedir(), '.config', 'solana', 'id.json');
@@ -65,7 +65,7 @@ async function loadOwnerKeypair() {
 }
 
 async function confirmOwner(owner) {
-  const automatedConfirmation = process.env.WUTZ_OWNER_CONFIRM;
+  const automatedConfirmation = process.env.KACK_OWNER_CONFIRM;
   if (automatedConfirmation !== undefined) {
     if (automatedConfirmation.trim() !== owner) throw new Error('Owner address was not confirmed. No transaction was sent.');
     console.log('Owner address confirmed through the explicit automation confirmation.');
@@ -73,7 +73,7 @@ async function confirmOwner(owner) {
   }
   const rl = createInterface({ input, output });
   try {
-    const confirmation = await rl.question(`\nNo transaction has been sent. To mint WUTZ on Solana Devnet, retype this owner address exactly:\n${owner}\n> `);
+    const confirmation = await rl.question(`\nNo transaction has been sent. To mint KACK on Solana Devnet, retype this owner address exactly:\n${owner}\n> `);
     if (confirmation.trim() !== owner) throw new Error('Owner address was not confirmed. No transaction was sent.');
   } finally {
     rl.close();
@@ -118,7 +118,7 @@ async function verifyMint(connection, mint, tokenAccount, owner) {
   if (mintInfo.freezeAuthority !== null) throw new Error('Verification failed: freeze authority is set.');
   if (!multiplier || multiplier.multiplier !== UI_MULTIPLIER || multiplier.newMultiplier !== UI_MULTIPLIER) throw new Error('Verification failed: ScaledUiAmountConfig multiplier mismatch.');
   if (tokenAccountInfo.value.amount !== RAW_SUPPLY.toString()) throw new Error('Verification failed: owner token account does not hold the full raw supply.');
-  if (!metadata || metadata.name !== 'Wutzcoin' || metadata.symbol !== 'WUTZ') throw new Error('Verification failed: Token-2022 metadata is missing or incorrect.');
+  if (!metadata || metadata.name !== 'Scheisscoin' || metadata.symbol !== 'KACK') throw new Error('Verification failed: Token-2022 metadata is missing or incorrect.');
 
   return { mintInfo, multiplier, metadata, owner };
 }
@@ -129,13 +129,13 @@ async function main() {
   const owner = await loadOwnerKeypair();
   const ownerAddress = owner.publicKey.toBase58();
 
-  console.log('Wutzcoin Token-2022 Devnet mint');
+  console.log('Scheisscoin Token-2022 Devnet mint');
   console.log(`RPC: ${DEVNET_RPC}`);
   console.log(`Owner address: ${ownerAddress}`);
   console.log(`Raw supply: ${RAW_SUPPLY}`);
   console.log(`Decimals: ${DECIMALS}`);
   console.log(`Scaled UI multiplier: ${UI_MULTIPLIER}`);
-  console.log(`Displayed supply for compatible clients: ${DISPLAYED_SUPPLY} WUTZ`);
+  console.log(`Displayed supply for compatible clients: ${DISPLAYED_SUPPLY} KACK`);
   console.log('The multiplier authority and metadata pointer authority will be disabled. No Freeze Authority is set.');
 
   await confirmOwner(ownerAddress);
@@ -145,8 +145,8 @@ async function main() {
   const metadata = {
     updateAuthority: owner.publicKey,
     mint: mint.publicKey,
-    name: 'Wutzcoin',
-    symbol: 'WUTZ',
+    name: 'Scheisscoin',
+    symbol: 'KACK',
     uri: METADATA_URI,
     additionalMetadata: [['notice', 'Devnet only / no monetary value']],
   };
@@ -235,7 +235,7 @@ async function main() {
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   main().catch((error) => {
-    console.error(`Wutzcoin mint stopped: ${error.message}`);
+    console.error(`Scheisscoin mint stopped: ${error.message}`);
     process.exitCode = 1;
   });
 }

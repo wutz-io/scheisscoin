@@ -1,15 +1,15 @@
 {
-  "name": "wutzcoin",
+  "name": "scheisscoin",
   "version": "1.0.0",
   "private": true,
-  "description": "Wutzcoin (WUTZ), a valueless Solana Devnet learning token and static website.",
+  "description": "Scheisscoin (KACK), a valueless Solana Devnet learning token and static website.",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "test": "node --test test/*.test.mjs",
-    "token:create": "node token/create-wutz.mjs"
+    "token:create": "node token/create-scheiss.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

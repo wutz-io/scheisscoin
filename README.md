@@ -1,10 +1,10 @@
-# Wutzcoin ($WUTZ)
+# Scheisscoin ($KACK)
 
-Wutzcoin is a deliberately valueless fun and learning token project for **Solana Devnet only**. It is not a product, investment, sale, presale, pool, listing, or promise of value. Do not send real SOL or money for WUTZ.
+Scheisscoin is a deliberately valueless fun and learning token project for **Solana Devnet only**. It is not a product, investment, sale, presale, pool, listing, or promise of value. Do not send real SOL or money for KACK.
 
 ## Website
 
-The static Astro site is published through GitHub Pages at <https://wutz-io.github.io/wutzcoin/>. It uses `base: '/wutzcoin'` so asset links work in the project Pages path. The site is English-first with a client-side EN/DE switch, contains no wallet connection or purchase path, and uses the real `wutz.io` favicon as its logo.
+The static Astro site is published through GitHub Pages at <https://kack.wutz.io/>. It uses the root base path for the custom subdomain. The site is English-first with a client-side EN/DE switch, contains no wallet connection or purchase path, and uses a custom pixel favicon.
 
 ## Token design
 
@@ -12,11 +12,11 @@ The static Astro site is published through GitHub Pages at <https://wutz-io.gith
 | --- | --- |
 | Network | Solana Devnet only |
 | Program | Token-2022 |
-| Name / symbol | Wutzcoin / WUTZ |
+| Name / symbol | Scheisscoin / KACK |
 | Raw supply | `100000000000000` |
 | Decimals | `0` |
 | Scaled UI multiplier | `1000000000` |
-| Compatible-client display | `100000000000000000000000 WUTZ` |
+| Compatible-client display | `100000000000000000000000 KACK` |
 | Freeze authority | Never set |
 | Mint authority | Disabled after the one-time mint |
 
@@ -26,7 +26,7 @@ The `ScaledUiAmountConfig` multiplier changes only what compatible clients displ
 
 - `src/pages/index.astro` — static, responsive public site and EN/DE switch
 - `public/` — favicon-derived 1024×1024 token image and off-chain metadata JSON
-- `token/create-wutz.mjs` — explicit, Devnet-only Token-2022 mint workflow
+- `token/create-scheiss.mjs` — explicit, Devnet-only Token-2022 mint workflow
 - `.github/workflows/deploy-pages.yml` — GitHub Pages build and deployment
 - `docs/TOKEN.md` — token and mint procedure
 

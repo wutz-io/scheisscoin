@@ -1,9 +1,9 @@
 {
-  "name": "Wutzcoin",
-  "symbol": "WUTZ",
+  "name": "Scheisscoin",
+  "symbol": "KACK",
   "description": "A valueless fun and learning token on Solana Devnet. Devnet only / no monetary value.",
-  "image": "https://wutz-io.github.io/wutzcoin/wutzcoin-token.png",
-  "external_url": "https://wutz-io.github.io/wutzcoin/",
+  "image": "https://kack.wutz.io/scheisscoin-token.png",
+  "external_url": "https://kack.wutz.io/",
   "attributes": [
     { "trait_type": "Network", "value": "Solana Devnet" },
     { "trait_type": "Purpose", "value": "Fun and learning" },
@@ -13,7 +13,7 @@
     "category": "image",
     "files": [
       {
-        "uri": "https://wutz-io.github.io/wutzcoin/wutzcoin-token.png",
+        "uri": "https://kack.wutz.io/scheisscoin-token.png",
         "type": "image/png"
       }
     ]

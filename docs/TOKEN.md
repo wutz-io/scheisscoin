@@ -1,8 +1,8 @@
-# Wutzcoin token specification
+# Scheisscoin token specification
 
 ## Scope
 
-Wutzcoin (`WUTZ`) is a Solana **Devnet-only** Token-2022 learning artifact. It has no monetary value and is not sold, listed, pooled, traded, or connected to any wallet interface.
+Scheisscoin (`KACK`) is a Solana **Devnet-only** Token-2022 learning artifact. It has no monetary value and is not sold, listed, pooled, traded, or connected to any wallet interface.
 
 ## Mint configuration
 
@@ -13,7 +13,7 @@ Wutzcoin (`WUTZ`) is a Solana **Devnet-only** Token-2022 learning artifact. It h
 | Raw supply | `100000000000000` |
 | Decimals | `0` |
 | Scaled UI multiplier | `1000000000` |
-| Displayed supply | `100000000000000000000000 WUTZ` |
+| Displayed supply | `100000000000000000000000 KACK` |
 | Metadata | Token-2022 MetadataPointer plus in-mint Token Metadata |
 | Freeze authority | `null` from mint creation |
 | Mint authority | Set to `null` after the one-time issue |
