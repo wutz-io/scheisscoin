@@ -9,7 +9,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "test": "node --test test/*.test.mjs",
-    "token:create": "node token/create-scheiss.mjs"
+    "token:create": "node token/create-scheiss.mjs",
+    "token:simulate": "node token/create-scheiss.mjs --simulate-only"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

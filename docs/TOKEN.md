@@ -27,8 +27,9 @@ The large displayed supply is intentional. The raw value is within Solana's `u64
 3. Run `npm run token:create`.
 4. Inspect the printed Mainnet RPC endpoint and public owner address, then retype that address exactly to authorize the transaction sequence.
 5. The existing owner wallet must hold enough Mainnet SOL for account rent and transaction fees. The script never requests an airdrop or sends SOL anywhere.
-6. The script atomically creates the extended mint and metadata, then atomically creates the owner ATA, mints the full raw supply, makes metadata immutable, and disables minting.
-7. Record the mint and ATA below only after RPC verification succeeds.
+6. Optionally run `npm run token:simulate` first; it performs a no-send simulation of the complete Mainnet transaction.
+7. The script atomically creates the extended mint and metadata, creates the owner ATA, mints the full raw supply, makes metadata immutable, and disables minting plus the MetadataPointer and scaled-UI update authorities.
+8. Record the mint and ATA below only after RPC verification succeeds.
 
 ## Post-mint record
 

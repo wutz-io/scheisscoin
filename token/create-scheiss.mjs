@@ -18,6 +18,8 @@ import {
   AuthorityType,
   ExtensionType,
   TOKEN_2022_PROGRAM_ID,
+  TYPE_SIZE,
+  LENGTH_SIZE,
   createAssociatedTokenAccountInstruction,
   createInitializeMetadataPointerInstruction,
   createInitializeMintInstruction,
@@ -114,7 +116,8 @@ function assertMainnet(connection) {
 async function simulateOrThrow(connection, transaction, signers, label) {
   const simulation = await connection.simulateTransaction(transaction, signers);
   if (simulation.value.err) {
-    throw new Error(`${label} simulation failed: ${JSON.stringify(simulation.value.err)}`);
+    const logs = simulation.value.logs?.join('\n') || 'No program logs were returned.';
+    throw new Error(`${label} simulation failed: ${JSON.stringify(simulation.value.err)}\n${logs}`);
   }
   console.log(`${label} simulation succeeded.`);
 }
@@ -138,6 +141,7 @@ async function verifyMint(connection, mint, tokenAccount, owner) {
 }
 
 async function main() {
+  const simulateOnly = process.argv.includes('--simulate-only');
   const connection = new Connection(MAINNET_RPC, 'confirmed');
   assertMainnet(connection);
   const owner = await loadOwnerKeypair();
@@ -151,11 +155,9 @@ async function main() {
     uri: METADATA_URI,
     additionalMetadata: [['notice', 'Mainnet / no monetary value']],
   };
-  const mintLength = getMintLen(
-    [ExtensionType.MetadataPointer, ExtensionType.ScaledUiAmountConfig],
-    { [ExtensionType.TokenMetadata]: packTokenMetadata(metadata).length },
-  );
-  const mintRent = await connection.getMinimumBalanceForRentExemption(mintLength, 'confirmed');
+  const mintSpace = getMintLen([ExtensionType.MetadataPointer, ExtensionType.ScaledUiAmountConfig]);
+  const metadataSpace = TYPE_SIZE + LENGTH_SIZE + packTokenMetadata(metadata).length;
+  const mintRent = await connection.getMinimumBalanceForRentExemption(mintSpace + metadataSpace, 'confirmed');
   const tokenAccountRent = await connection.getMinimumBalanceForRentExemption(ACCOUNT_SIZE, 'confirmed');
   const feeBuffer = 50_000;
   const requiredLamports = mintRent + tokenAccountRent + feeBuffer;
@@ -172,7 +174,7 @@ async function main() {
 
   await assertPublishedMetadata();
   await ensureMainnetFunds(connection, owner.publicKey, requiredLamports);
-  await confirmOwner(ownerAddress);
+  if (!simulateOnly) await confirmOwner(ownerAddress);
 
   const ownerTokenAccount = getAssociatedTokenAddressSync(
     mint.publicKey,
@@ -186,12 +188,12 @@ async function main() {
     SystemProgram.createAccount({
       fromPubkey: owner.publicKey,
       newAccountPubkey: mint.publicKey,
-      space: mintLength,
+      space: mintSpace,
       lamports: mintRent,
       programId: TOKEN_2022_PROGRAM_ID,
     }),
-    createInitializeMetadataPointerInstruction(mint.publicKey, null, mint.publicKey, TOKEN_2022_PROGRAM_ID),
-    createInitializeScaledUiAmountConfigInstruction(mint.publicKey, null, UI_MULTIPLIER, TOKEN_2022_PROGRAM_ID),
+    createInitializeMetadataPointerInstruction(mint.publicKey, owner.publicKey, mint.publicKey, TOKEN_2022_PROGRAM_ID),
+    createInitializeScaledUiAmountConfigInstruction(mint.publicKey, owner.publicKey, UI_MULTIPLIER, TOKEN_2022_PROGRAM_ID),
     createInitializeMintInstruction(mint.publicKey, DECIMALS, owner.publicKey, null, TOKEN_2022_PROGRAM_ID),
     createInitializeMetadataInstruction({
       programId: TOKEN_2022_PROGRAM_ID,
@@ -204,9 +206,6 @@ async function main() {
       uri: metadata.uri,
     }),
   );
-  await simulateOrThrow(connection, createMint, [owner, mint], 'Mint creation');
-  await sendAndConfirmTransaction(connection, createMint, [owner, mint], { commitment: 'confirmed' });
-
   const issueAndLock = new Transaction().add(
     createAssociatedTokenAccountInstruction(
       owner.publicKey,
@@ -239,9 +238,30 @@ async function main() {
       [],
       TOKEN_2022_PROGRAM_ID,
     ),
+    createSetAuthorityInstruction(
+      mint.publicKey,
+      owner.publicKey,
+      AuthorityType.MetadataPointer,
+      null,
+      [],
+      TOKEN_2022_PROGRAM_ID,
+    ),
+    createSetAuthorityInstruction(
+      mint.publicKey,
+      owner.publicKey,
+      AuthorityType.ScaledUiAmountConfig,
+      null,
+      [],
+      TOKEN_2022_PROGRAM_ID,
+    ),
   );
-  await simulateOrThrow(connection, issueAndLock, [owner], 'Issue and authority lock');
-  await sendAndConfirmTransaction(connection, issueAndLock, [owner], { commitment: 'confirmed' });
+  const mintAndLock = new Transaction().add(...createMint.instructions, ...issueAndLock.instructions);
+  await simulateOrThrow(connection, mintAndLock, [owner, mint], 'Mint, issue, and authority lock');
+  if (simulateOnly) {
+    console.log('Full mint transaction simulation completed; no transaction was sent.');
+    return;
+  }
+  await sendAndConfirmTransaction(connection, mintAndLock, [owner, mint], { commitment: 'confirmed' });
 
   await verifyMint(connection, mint.publicKey, ownerTokenAccount, owner.publicKey);
   const explorer = `https://explorer.solana.com/address/${mint.publicKey.toBase58()}`;

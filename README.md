@@ -49,6 +49,6 @@ git diff --check
 
 `npm run token:create` uses only `https://api.mainnet-beta.solana.com`. It reads an existing owner keypair from `SOLANA_KEYPAIR` or `~/.config/solana/id.json`; it will never silently generate an owner wallet or print secret material. It displays the public owner address and requires that exact address to be retyped immediately before any transaction. It never requests a faucet airdrop; the existing owner must hold enough Mainnet SOL for rent and fees.
 
-Before running it, confirm that GitHub Pages has deployed and that `public/token-metadata.json` is publicly reachable. The script creates the Token-2022 mint, MetadataPointer and official in-mint metadata, immutable `ScaledUiAmountConfig`, owner ATA, raw supply, and then disables the mint authority. It verifies the result through Mainnet RPC.
+Before running it, confirm that GitHub Pages has deployed and that `public/token-metadata.json` is publicly reachable. Run `npm run token:simulate` for a no-send Mainnet simulation. The script creates the Token-2022 mint, MetadataPointer and official in-mint metadata, immutable `ScaledUiAmountConfig`, owner ATA, raw supply, and all authority locks in one atomic transaction. It verifies the result through Mainnet RPC.
 
 See [docs/TOKEN.md](docs/TOKEN.md) for the exact constraints and post-mint record.
