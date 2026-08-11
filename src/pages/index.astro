@@ -92,7 +92,7 @@ const copy = {
         <div class="hero-copy">
           {languages.map((language) => { const t = copy[language]; return <div data-lang={language}><p class="eyebrow"><span></span>{t.eyebrow}</p><h1>{t.headline[0]}<br /><em>{t.headline[1]}</em></h1><p class="hero-text">{t.hero}</p><div class="hero-actions"><a class="button primary" href="#airdrop">{t.actions[0]}</a><a class="button secondary" href="#tokenomics">{t.actions[1]}</a><a class="button secondary" href={explorerUrl} target="_blank" rel="noreferrer">{t.actions[2]}</a></div><p class="microcopy">{t.microcopy}</p></div>; })}
         </div>
-        <div class="coin-stage" aria-label="Abstract Scheisscoin coin"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="coin"><span class="coin-small">WUTZ!</span><strong>K</strong><span class="coin-label">$KACK</span></div><span class="float-label label-one">NO VALUE</span><span class="float-label label-two">MAINNET</span></div>
+        <div class="coin-stage" aria-label="Abstract Scheisscoin coin"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="coin"><span class="coin-small">$</span><strong>K</strong><span class="coin-label">$KACK</span></div><span class="float-label label-one">WUTZ!</span><span class="float-label label-two">MAINNET</span></div>
       </section>
 
       {languages.map((language) => <section class="ticker" data-lang={language} aria-label="Important notice">{copy[language].ticker.map((item) => <span>{item}<b>✦</b></span>)}</section>)}
