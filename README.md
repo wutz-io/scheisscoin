@@ -1,6 +1,6 @@
 # Scheisscoin ($KACK)
 
-Scheisscoin is a deliberately valueless fun token project for **Solana Mainnet**. It is not a product, investment, sale, presale, pool, listing, or promise of value. Mainnet SOL is required only to pay the one-time on-chain account rent and transaction fees; do not send SOL or money to anyone offering KACK.
+Scheisscoin is a deliberately valueless fun token project for **Solana Mainnet**. It is not a product, investment, sale, presale, pool, listing, or promise of value. Mainnet SOL is required only to pay the one-time on-chain account rent and transaction fees; do not send SOL or money to anyone offering $KACK.
 
 ## Website
 
@@ -12,11 +12,11 @@ The static Astro site is published through GitHub Pages at <https://kack.wutz.io
 | --- | --- |
 | Network | Solana Mainnet |
 | Program | Token-2022 |
-| Name / symbol | Scheisscoin / KACK |
+| Name / symbol | Scheisscoin / `$KACK` (on-chain symbol: `KACK`) |
 | Raw supply | `100000000000000` |
 | Decimals | `0` |
 | Scaled UI multiplier | `1000000000` |
-| Compatible-client display | `100000000000000000000000 KACK` |
+| Compatible-client display | `100000000000000000000000 $KACK` |
 | Freeze authority | Never set |
 | Mint authority | Disabled after the one-time mint |
 

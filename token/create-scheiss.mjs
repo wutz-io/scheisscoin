@@ -74,7 +74,7 @@ async function confirmOwner(owner) {
   }
   const rl = createInterface({ input, output });
   try {
-    const confirmation = await rl.question(`\nNo transaction has been sent. To mint KACK on Solana Mainnet, retype this owner address exactly:\n${owner}\n> `);
+    const confirmation = await rl.question(`\nNo transaction has been sent. To mint $KACK on Solana Mainnet, retype this owner address exactly:\n${owner}\n> `);
     if (confirmation.trim() !== owner) throw new Error('Owner address was not confirmed. No transaction was sent.');
   } finally {
     rl.close();
@@ -166,7 +166,7 @@ async function main() {
   console.log(`Raw supply: ${RAW_SUPPLY}`);
   console.log(`Decimals: ${DECIMALS}`);
   console.log(`Scaled UI multiplier: ${UI_MULTIPLIER}`);
-  console.log(`Displayed supply for compatible clients: ${DISPLAYED_SUPPLY} KACK`);
+  console.log(`Displayed supply for compatible clients: ${DISPLAYED_SUPPLY} $KACK`);
   console.log('The multiplier authority and metadata pointer authority will be disabled. No Freeze Authority is set.');
   console.log(`Required Mainnet SOL (rent plus fee buffer): ${requiredLamports / LAMPORTS_PER_SOL}`);
 

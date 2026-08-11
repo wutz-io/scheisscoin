@@ -2,7 +2,7 @@
   "name": "scheisscoin",
   "version": "1.0.0",
   "private": true,
-  "description": "Scheisscoin (KACK), a valueless Solana Mainnet fun token and static website.",
+  "description": "Scheisscoin ($KACK), a valueless Solana Mainnet fun token and static website.",
   "type": "module",
   "scripts": {
     "dev": "astro dev",

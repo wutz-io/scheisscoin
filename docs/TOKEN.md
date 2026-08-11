@@ -2,7 +2,7 @@
 
 ## Scope
 
-Scheisscoin (`KACK`) is a Solana **Mainnet** Token-2022 fun token. It has no monetary value and is not sold, listed, pooled, traded, or connected to any wallet interface.
+Scheisscoin (`$KACK`; on-chain symbol `KACK`) is a Solana **Mainnet** Token-2022 fun token. It has no monetary value and is not sold, listed, pooled, traded, or connected to any wallet interface.
 
 ## Mint configuration
 
@@ -13,7 +13,7 @@ Scheisscoin (`KACK`) is a Solana **Mainnet** Token-2022 fun token. It has no mon
 | Raw supply | `100000000000000` |
 | Decimals | `0` |
 | Scaled UI multiplier | `1000000000` |
-| Displayed supply | `100000000000000000000000 KACK` |
+| Displayed supply | `100000000000000000000000 $KACK` |
 | Metadata | Token-2022 MetadataPointer plus in-mint Token Metadata |
 | Freeze authority | `null` from mint creation |
 | Mint authority | Set to `null` after the one-time issue |
