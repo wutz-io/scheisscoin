@@ -4,7 +4,7 @@ Wutzcoin is a deliberately valueless fun and learning token project for **Solana
 
 ## Website
 
-The static Astro site is published through GitHub Pages at <https://wutz-io.github.io/wutzcoin/>. It uses `base: '/wutzcoin'` so asset links work in the project Pages path. The site is English-first with a client-side EN/DE switch, contains no wallet connection or purchase path, and uses the real `wutz.io` favicon as its logo.
+The static Astro site is published through GitHub Pages at <https://coin.wutz.io>. It is English-first with a client-side EN/DE switch, contains no wallet connection or purchase path, and uses the real `wutz.io` favicon as its logo. The public reserve label is **Schlonk**; the actual owner remains the public Devnet wallet recorded after minting.
 
 ## Token design
 

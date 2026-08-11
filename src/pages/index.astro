@@ -2,150 +2,128 @@
 import '../styles/site.css';
 
 const explorerUrl = 'https://explorer.solana.com/?cluster=devnet';
+const sourceUrl = 'https://github.com/wutz-io/wutzcoin';
 const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const languages = ['en', 'de'] as const;
+
+const copy = {
+  en: {
+    nav: ['Tokenomics', 'Blog', 'Airdrop'],
+    eyebrow: 'The unreasonably honest fun money',
+    headline: ['Much Wutz.', 'Zero value.'],
+    hero: '100 sextillion digital WUTZ on Solana Devnet. No investment, no returns, no secret utility. Just a token to give to people who already have everything — except WUTZ.',
+    actions: ['Get WUTZ', 'Inspect tokenomics', 'Chain Explorer ↗'],
+    microcopy: 'No wallet connection. No purchase. No mainnet.',
+    ticker: ['WUTZ IS WORTHLESS', 'NO PRESALE', 'NO EXCHANGE', 'JUST FOR FUN'],
+    stats: [['100 sextillion', 'displayed total supply'], ['€0', 'claimed value'], ['Solana Devnet', 'playground, not an exchange'], ['0', 'financial promises']],
+    math: 'Math with very large numbers',
+    tokenomicsTitle: 'Tokenomics without economic utility.',
+    tokenomicsIntro: 'WUTZ uses Token-2022 with a transparent display multiplier. There is no custom smart contract, no transfer tax and no upgrade key. After the one-time mint, the raw supply is fixed.',
+    allocation: ['held by Schlonk', 'to give away'],
+    distribution: [['Schlonk reserve', '100%', '100,000,000,000,000,000,000,000 WUTZ'], ['Investors', '0%', '0 WUTZ'], ['Team vesting', '0%', '0 WUTZ'], ['Liquidity', '0%', '0 WUTZ']],
+    facts: [['Fixed supply', '100 trillion raw units × 1 billion UI multiplier = 100 sextillion displayed WUTZ. Both authorities are made immutable during minting.'], ['Devnet', 'Devnet SOL is free from the faucet and has no real value. The network may be reset.'], ['No liquidity', 'No pool, no listing, no presale. Nobody should buy WUTZ or treat it as an investment.']],
+    quote: ['Other coins promise the future of finance.', ' WUTZ does not even promise tomorrow.'],
+    committee: '— Wutzcoin Technical Committee (one person)',
+    loreEyebrow: 'From the Wutziverse',
+    loreTitle: 'Chronicle & fictional past.',
+    loreIntro: 'Everything before August 11, 2026 is explicitly fictional project lore. No backdated success stories, no invented community.',
+    lore: [['August 11, 2026', 'PROTOCOL', 'The supply was very reasonably set to 100 sextillion', 'After several seconds of careful planning, the tokenomics are settled: a lot of WUTZ, no price and no artificial scarcity. The mint authority will be disabled after minting.'], ['December 31, 2025', 'FICTIONAL LORE', 'Proof of Wutz reaches theoretical maturity', 'The research year ended with a breakthrough: a meme needs no consensus mechanism when it already lives on a devnet.'], ['May 17, 2025', 'FICTIONAL LORE', 'Community unanimously decides nothing', 'The first governance call that never happened successfully avoided roadmaps, Discord moderation and ten-tier ambassador programs.'], ['April 1, 2024', 'FICTIONAL LORE', 'Wutzpaper v0.0 published and immediately ignored', "The original concept introduced utility, staking and revolutionary AI. Then all three terms were deleted. That was the year's most important technical upgrade."]],
+    event: 'Community Event #000',
+    airdropTitle: 'The first WUTZ airdrop will happen eventually.',
+    airdropText: 'No token has been minted yet. Once the Devnet mint exists, WUTZ can be distributed manually and free of charge to Solana Devnet addresses. There is no registration and no paid participation.',
+    status: 'Status', statusValue: 'NOT STARTED', statusNote: 'Mint address follows after deployment',
+    disclaimerTitle: 'A serious note:',
+    disclaimer: 'WUTZ is a technical fun and learning project on Solana Devnet. The token has no guaranteed or expected monetary value, grants no rights and is not sold. Do not send real SOL or money to anyone offering WUTZ.',
+    footer: 'Made in Munich. No roadmap. No Discord. No nonsense.', source: 'Source code ↗',
+  },
+  de: {
+    nav: ['Tokenomics', 'Blog', 'Airdrop'],
+    eyebrow: 'Das unvernünftig ehrliche Spaßgeld',
+    headline: ['Viel Wutz.', 'Null Wert.'],
+    hero: '100 Trilliarden digitale WUTZ auf Solana Devnet. Kein Investment, keine Rendite, keine geheime Utility. Nur ein Token für Menschen, die schon alles haben — außer WUTZ.',
+    actions: ['WUTZ bekommen', 'Tokenomics prüfen', 'Chain Explorer ↗'],
+    microcopy: 'Keine Wallet-Verbindung. Kein Kauf. Kein Mainnet.',
+    ticker: ['WUTZ IST WERTLOS', 'KEIN PRESALE', 'KEINE BÖRSE', 'NUR ZUM SPASS'],
+    stats: [['100 Trilliarden', 'angezeigter Gesamtbestand'], ['0 €', 'behaupteter Wert'], ['Solana Devnet', 'Spielwiese statt Börse'], ['0', 'Finanzversprechen']],
+    math: 'Mathematik mit sehr großen Zahlen',
+    tokenomicsTitle: 'Tokenomics ohne ökonomischen Nutzen.',
+    tokenomicsIntro: 'WUTZ nutzt Token-2022 mit einem transparenten Anzeige-Multiplikator. Es gibt keinen eigenen Smart Contract, keine Transfersteuern und keine Upgrade-Keys. Nach dem einmaligen Mint ist der Rohbestand fix.',
+    allocation: ['bei Schlonk', 'zum Verschenken'],
+    distribution: [['Schlonk-Reserve', '100 %', '100.000.000.000.000.000.000.000 WUTZ'], ['Investoren', '0 %', '0 WUTZ'], ['Team-Vesting', '0 %', '0 WUTZ'], ['Liquidität', '0 %', '0 WUTZ']],
+    facts: [['Fixer Supply', '100 Billionen Roh-Einheiten × 1 Milliarde UI-Faktor = 100 Trilliarden angezeigte WUTZ. Beide Authorities werden beim Mint unveränderlich gesetzt.'], ['Devnet', 'Devnet-SOL ist kostenlos aus dem Faucet erhältlich und hat keinen realen Wert. Das Netzwerk kann zurückgesetzt werden.'], ['Keine Liquidität', 'Kein Pool, kein Listing, kein Presale. Niemand soll WUTZ kaufen oder als Anlage behandeln.']],
+    quote: ['Andere Coins versprechen die Zukunft des Finanzsystems.', ' WUTZ verspricht nicht einmal morgen.'],
+    committee: '— Wutzcoin Technical Committee (eine Person)',
+    loreEyebrow: 'Aus dem Wutziversum',
+    loreTitle: 'Chronik & erfundene Vergangenheit.',
+    loreIntro: 'Alles vor dem 11. August 2026 ist ausdrücklich fiktive Projekt-Lore. Keine rückdatierten Erfolgsmeldungen, keine erfundene Community.',
+    lore: [['11. August 2026', 'PROTOKOLL', 'Der Supply wurde völlig vernünftig auf 100 Trilliarden festgelegt', 'Nach mehreren Sekunden sorgfältiger Planung steht die Tokenomics: sehr viele WUTZ, kein Preis und keine künstliche Knappheit. Nach dem Mint wird die Mint-Authority abgeschaltet.'], ['31. Dezember 2025', 'FIKTIVE LORE', 'Proof of Wutz erreicht die theoretische Marktreife', 'Das Forschungsjahr endete mit einer bahnbrechenden Erkenntnis: Ein Meme braucht keinen Konsensmechanismus, wenn es bereits auf einem Devnet liegt.'], ['17. Mai 2025', 'FIKTIVE LORE', 'Community beschließt einstimmig, nichts zu entscheiden', 'Beim ersten nicht stattgefundenen Governance-Call wurde erfolgreich auf Roadmaps, Discord-Moderation und zehnstufige Ambassador-Programme verzichtet.'], ['1. April 2024', 'FIKTIVE LORE', 'Wutzpaper v0.0 veröffentlicht und sofort ignoriert', 'Das ursprüngliche Konzept führte Utility, Staking und revolutionäre KI ein. Danach wurden alle drei Begriffe gestrichen. Das war das wichtigste technische Upgrade des Jahres.']],
+    event: 'Community Event #000',
+    airdropTitle: 'Der erste WUTZ-Airdrop kommt irgendwann.',
+    airdropText: 'Noch wurde kein Token geprägt. Sobald der Devnet-Mint existiert, können WUTZ kostenlos und manuell an Solana-Devnet-Adressen verteilt werden. Es gibt keine Registrierung und keine bezahlte Teilnahme.',
+    status: 'Status', statusValue: 'NICHT GESTARTET', statusNote: 'Mint-Adresse folgt nach Deployment',
+    disclaimerTitle: 'Ernst gemeinter Hinweis:',
+    disclaimer: 'WUTZ ist ein technisches Spaß- und Lernprojekt auf Solana Devnet. Der Token besitzt keinen zugesicherten oder erwarteten Geldwert, gewährt keine Rechte und wird nicht verkauft. Sende kein echtes SOL und kein Geld an Personen, die WUTZ anbieten.',
+    footer: 'Made in München. Keine Roadmap. Kein Discord. Kein Quatsch.', source: 'Quellcode ↗',
+  },
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-language="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Wutzcoin (WUTZ): a valueless Solana Devnet fun and learning token." />
+    <meta name="description" content="WUTZ is a worthless fun token on Solana Devnet. No investment, no presale, no mainnet." />
     <meta name="theme-color" content="#0a0014" />
     <link rel="icon" href={`${baseUrl}favicon.svg`} type="image/svg+xml" />
-    <title>Wutzcoin — $WUTZ on Solana Devnet</title>
+    <title>Wutzcoin — Much Wutz. Zero Value.</title>
   </head>
   <body>
-    <div class="acid-noise" aria-hidden="true"></div>
-    <header class="site-header shell">
-      <a class="brand" href="#top" aria-label="Wutzcoin home">
-        <img src={`${baseUrl}favicon.svg`} alt="Wutzcoin logo" width="48" height="48" />
-        <span>WUTZCOIN</span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="#token">Token</a>
-        <a href="#roadmap">Timeline</a>
-        <a href="#airdrop">Airdrop</a>
-      </nav>
-      <button class="language-toggle" type="button" aria-label="Switch to German" data-language-toggle>DE</button>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Wutzcoin home"><img class="brand-icon" src={`${baseUrl}favicon.svg`} alt="" /><span>WUTZCOIN</span></a>
+      <nav aria-label="Main navigation">{languages.map((language) => copy[language].nav.map((item, index) => <a data-lang={language} href={['#tokenomics', '#lore', '#airdrop'][index]}>{item}</a>))}</nav>
+      <div class="header-actions"><div class="language-switch" role="group" aria-label="Language"><button class="active" data-language-button="en" type="button">EN</button><button data-language-button="de" type="button">DE</button></div><a class="header-link" href={sourceUrl}>GitHub ↗</a></div>
     </header>
 
-    <main id="top">
-      <section class="hero shell">
-        <div>
-          <p class="eyebrow" data-en>DEVNET ONLY · ZERO VALUE · MAXIMUM WUTZ</p>
-          <p class="eyebrow" data-de>NUR DEVNET · WERTLOS · MAXIMAL WUTZ</p>
-          <h1 data-en>THE COIN<br /><span>GOES WUTZ.</span></h1>
-          <h1 data-de>DIE COIN<br /><span>GEHT WUTZ.</span></h1>
-          <p class="hero-copy" data-en>Wutzcoin is a deliberately valueless Token-2022 experiment on Solana Devnet. It is not for buying, selling, trading, or believing in.</p>
-          <p class="hero-copy" data-de>Wutzcoin ist ein bewusst wertloses Token-2022-Experiment auf Solana Devnet. Nicht zum Kaufen, Verkaufen, Handeln oder Glauben.</p>
-          <div class="hero-actions">
-            <a class="button button-hot" href={explorerUrl} target="_blank" rel="noreferrer" data-en>OPEN DEVNET EXPLORER ↗</a>
-            <a class="button button-hot" href={explorerUrl} target="_blank" rel="noreferrer" data-de>DEVNET EXPLORER ÖFFNEN ↗</a>
-            <a class="button button-plain" href="#warning" data-en>READ THE WARNING</a>
-            <a class="button button-plain" href="#warning" data-de>WARNUNG LESEN</a>
-          </div>
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          {languages.map((language) => { const t = copy[language]; return <div data-lang={language}><p class="eyebrow"><span></span>{t.eyebrow}</p><h1>{t.headline[0]}<br /><em>{t.headline[1]}</em></h1><p class="hero-text">{t.hero}</p><div class="hero-actions"><a class="button primary" href="#airdrop">{t.actions[0]}</a><a class="button secondary" href="#tokenomics">{t.actions[1]}</a><a class="button secondary" href={explorerUrl} target="_blank" rel="noreferrer">{t.actions[2]}</a></div><p class="microcopy">{t.microcopy}</p></div>; })}
         </div>
-        <aside class="hero-sticker" aria-label="Wutzcoin token image">
-          <img src={`${baseUrl}wutzcoin-token.png`} alt="Pixel Wutzcoin token" />
-          <strong>$WUTZ</strong>
-          <small data-en>not a number go up thing</small>
-          <small data-de>kein Zahl-geht-hoch-Ding</small>
-        </aside>
+        <div class="coin-stage" aria-label="Abstract Wutzcoin coin"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="coin"><span class="coin-small">$</span><strong>W</strong><span class="coin-label">WUTZ</span></div><span class="float-label label-one">NO VALUE</span><span class="float-label label-two">DEVNET ONLY</span></div>
       </section>
 
-      <section class="ticker" aria-label="Wutzcoin characteristics">
-        <span>NO MAINNET</span><span>NO SALE</span><span>NO LIQUIDITY</span><span>NO DEX</span><span>NO WALLET CONNECT</span><span>NO PROMISES</span>
+      {languages.map((language) => <section class="ticker" data-lang={language} aria-label="Important notice">{copy[language].ticker.map((item) => <span>{item}<b>✦</b></span>)}</section>)}
+      {languages.map((language) => <section class="stats" data-lang={language} aria-label="Wutzcoin stats">{copy[language].stats.map(([value, label]) => <div class="stat"><strong>{value}</strong><span>{label}</span></div>)}</section>)}
+
+      <section class="section tokenomics" id="tokenomics">
+        {languages.map((language) => { const t = copy[language]; return <div data-lang={language}><div class="section-heading"><p class="eyebrow"><span></span>{t.math}</p><h2>{t.tokenomicsTitle}</h2><p>{t.tokenomicsIntro}</p></div><div class="token-grid"><div class="allocation-card"><div class="allocation-visual"><span>100 %</span><small>{t.allocation[0]}<br />{t.allocation[1]}</small></div></div><div class="distribution">{t.distribution.map(([name, percentage, amount]) => <div class="distribution-row"><span>{name}</span><strong>{percentage}</strong><small>{amount}</small></div>)}</div></div><div class="facts">{t.facts.map(([title, text], index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{text}</p></article>)}</div></div>; })}
       </section>
 
-      <section id="token" class="shell section-grid">
-        <article class="panel panel-dark">
-          <p class="panel-label">TOKEN FACTS / TOKEN-FAKTEN</p>
-          <h2 data-en>ONE HUNDRED SEXTILLION, VISUALLY.</h2>
-          <h2 data-de>EINHUNDERT TRILLIARDEN, OPTISCH.</h2>
-          <p data-en>The raw on-chain balance is intentionally within Solana's <code>u64</code> limit. A Token-2022 display multiplier makes compatible clients show the theatrical number below.</p>
-          <p data-de>Der Rohbestand auf der Chain bleibt absichtlich innerhalb von Solanas <code>u64</code>-Grenze. Ein Token-2022-Anzeigemultiplikator zeigt kompatiblen Clients die theatralische Zahl unten.</p>
-          <dl class="token-data">
-            <div><dt>Network</dt><dd>Solana Devnet</dd></div>
-            <div><dt>Program</dt><dd>Token-2022</dd></div>
-            <div><dt>Symbol</dt><dd>$WUTZ</dd></div>
-            <div><dt>Raw supply</dt><dd>100,000,000,000,000</dd></div>
-            <div><dt>Decimals</dt><dd>0</dd></div>
-            <div><dt>UI multiplier</dt><dd>1,000,000,000</dd></div>
-            <div class="wide"><dt>Displayed supply</dt><dd>100,000,000,000,000,000,000,000 WUTZ</dd></div>
-          </dl>
-        </article>
-        <article class="panel panel-light">
-          <p class="panel-label">STATUS / STATUS</p>
-          <h2 data-en>PRE-MINT CHECKLIST</h2>
-          <h2 data-de>VOR-MINT-CHECKLISTE</h2>
-          <ul class="checklist">
-            <li data-en>Website and public metadata: online</li><li data-de>Website und öffentliche Metadaten: online</li>
-            <li data-en>Network: Solana Devnet only</li><li data-de>Netzwerk: ausschließlich Solana Devnet</li>
-            <li data-en>Mint: awaiting owner confirmation</li><li data-de>Mint: wartet auf Owner-Bestätigung</li>
-            <li data-en>Mint and freeze authorities: will be disabled</li><li data-de>Mint- und Freeze-Authorities: werden deaktiviert</li>
-          </ul>
-          <a class="text-link" href={explorerUrl} target="_blank" rel="noreferrer" data-en>Inspect the Devnet cluster ↗</a>
-          <a class="text-link" href={explorerUrl} target="_blank" rel="noreferrer" data-de>Devnet-Cluster prüfen ↗</a>
-        </article>
-      </section>
+      {languages.map((language) => { const t = copy[language]; return <section class="manifesto" data-lang={language}><p>THE WUTZPAPER</p><blockquote>{t.quote[0]}<em>{t.quote[1]}</em></blockquote><div class="manifesto-sign">{t.committee}</div></section>; })}
 
-      <section id="roadmap" class="shell section-block">
-        <div class="section-heading">
-          <p class="eyebrow">FICTION, CLEARLY LABELLED / FIKTION, KLAR MARKIERT</p>
-          <h2 data-en>THE ABSOLUTELY FICTIONAL PROJECT CHRONICLE</h2>
-          <h2 data-de>DIE ABSOLUT FIKTIVE PROJEKTCHRONIK</h2>
-          <p data-en>This is a playful imagined timeline, not a record of past events, milestones, users, partners, listings, or promises.</p>
-          <p data-de>Das ist eine spielerische Fantasie-Zeitleiste, kein Bericht über vergangene Events, Meilensteine, Nutzende, Partner, Listings oder Zusagen.</p>
-        </div>
-        <ol class="timeline">
-          <li><b>T+0</b><span data-en>A pixel says “WUTZ.” Someone writes it down.</span><span data-de>Ein Pixel sagt „WUTZ.“ Jemand schreibt es auf.</span></li>
-          <li><b>T+1</b><span data-en>The token discovers Devnet, not the market.</span><span data-de>Der Token entdeckt Devnet, nicht den Markt.</span></li>
-          <li><b>T+2</b><span data-en>A simulated confetti machine reaches unreasonable levels.</span><span data-de>Eine simulierte Konfettimaschine erreicht unvernünftige Ausmaße.</span></li>
-          <li><b>T+∞</b><span data-en>The experiment remains an experiment.</span><span data-de>Das Experiment bleibt ein Experiment.</span></li>
-        </ol>
-      </section>
+      <section class="section lore" id="lore">{languages.map((language) => { const t = copy[language]; return <div data-lang={language}><div class="section-heading split-heading"><div><p class="eyebrow"><span></span>{t.loreEyebrow}</p><h2>{t.loreTitle}</h2></div><p>{t.loreIntro}</p></div><div class="post-list">{t.lore.map(([date, tag, title, text], index) => <article class="post"><div class="post-number">{String(index + 1).padStart(2, '0')}</div><div class="post-meta"><time>{date}</time><span>{tag}</span></div><div class="post-copy"><h3>{title}</h3><p>{text}</p></div></article>)}</div></div>; })}</section>
 
-      <section id="airdrop" class="shell callout">
-        <div>
-          <p class="panel-label">AIRDROP / AIRDROP</p>
-          <h2 data-en>NO AIRDROP IS LIVE.</h2>
-          <h2 data-de>KEIN AIRDROP IST AKTIV.</h2>
-          <p data-en>There is no claim page, wallet connection, form, social channel, or eligibility list. Treat anything claiming otherwise as fake.</p>
-          <p data-de>Es gibt keine Claim-Seite, Wallet-Verbindung, Formulare, Social-Kanäle oder Berechtigungsliste. Alles Gegenteilige ist fake.</p>
-        </div>
-        <div class="fake-stamp" aria-hidden="true">NO<br />CLAIM</div>
-      </section>
-
-      <section id="warning" class="shell warning">
-        <img src={`${baseUrl}favicon.svg`} alt="" width="52" height="52" />
-        <div>
-          <h2 data-en>A serious note.</h2><h2 data-de>Eine ernste Anmerkung.</h2>
-          <p data-en>WUTZ is a technical fun and learning project on Solana Devnet. It has no guaranteed or expected monetary value, grants no rights, is not offered for sale, and must not be exchanged for real SOL or money. The scaled UI amount is cosmetic; incompatible clients may show only the raw supply.</p>
-          <p data-de>WUTZ ist ein technisches Spaß- und Lernprojekt auf Solana Devnet. Es hat keinen garantierten oder erwarteten Geldwert, verleiht keine Rechte, wird nicht verkauft und darf nicht gegen echtes SOL oder Geld getauscht werden. Der skalierte UI-Betrag ist kosmetisch; inkompatible Clients zeigen möglicherweise nur den Rohbestand.</p>
-        </div>
-      </section>
+      <section class="section airdrop" id="airdrop">{languages.map((language) => { const t = copy[language]; return <div class="drop-card" data-lang={language}><div><p class="eyebrow light"><span></span>{t.event}</p><h2>{t.airdropTitle}</h2><p>{t.airdropText}</p></div><div class="drop-status"><span>{t.status}</span><strong>{t.statusValue}</strong><small>{t.statusNote}</small></div></div>; })}</section>
+      {languages.map((language) => { const t = copy[language]; return <section class="disclaimer" data-lang={language}><strong>{t.disclaimerTitle}</strong><p>{t.disclaimer}</p></section>; })}
     </main>
 
-    <footer class="site-footer shell">
-      <img src={`${baseUrl}favicon.svg`} alt="Wutzcoin logo" width="34" height="34" />
-      <span>WUTZCOIN · SOLANA DEVNET · NO MONETARY VALUE</span>
-      <a href="https://wutz.io" target="_blank" rel="noreferrer">wutz.io ↗</a>
-    </footer>
+    <footer><a class="brand" href="#top"><img class="brand-icon" src={`${baseUrl}favicon.svg`} alt="" /><span>WUTZCOIN</span></a>{languages.map((language) => <p data-lang={language}>{copy[language].footer}</p>)}{languages.map((language) => <a data-lang={language} href={sourceUrl}>{copy[language].source}</a>)}</footer>
 
     <script>
-      const button = document.querySelector<HTMLButtonElement>('[data-language-toggle]');
-      const root = document.documentElement;
-      if (button) {
-        const setLanguage = (language: 'en' | 'de') => {
-          root.lang = language;
-          root.dataset.language = language;
-          button.textContent = language === 'en' ? 'DE' : 'EN';
-          button.setAttribute('aria-label', language === 'en' ? 'Switch to German' : 'Zu Englisch wechseln');
-        };
-        setLanguage('en');
-        button.addEventListener('click', () => setLanguage(root.dataset.language === 'en' ? 'de' : 'en'));
-      }
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-language-button]');
+      const setLanguage = (language: 'en' | 'de') => {
+        document.documentElement.lang = language;
+        document.documentElement.dataset.language = language;
+        buttons.forEach((button) => {
+          const active = button.dataset.languageButton === language;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+      };
+      buttons.forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.languageButton === 'de' ? 'de' : 'en')));
+      setLanguage('en');
     </script>
   </body>
 </html>

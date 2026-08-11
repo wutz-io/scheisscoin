@@ -41,7 +41,7 @@ export const RAW_SUPPLY = 100_000_000_000_000n;
 export const DECIMALS = 0;
 export const UI_MULTIPLIER = 1_000_000_000;
 export const DISPLAYED_SUPPLY = RAW_SUPPLY * BigInt(UI_MULTIPLIER);
-export const METADATA_URI = 'https://wutz-io.github.io/wutzcoin/token-metadata.json';
+export const METADATA_URI = 'https://coin.wutz.io/token-metadata.json';
 
 function keypairPath() {
   return process.env.SOLANA_KEYPAIR || join(homedir(), '.config', 'solana', 'id.json');

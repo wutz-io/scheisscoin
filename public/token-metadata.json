@@ -2,8 +2,8 @@
   "name": "Wutzcoin",
   "symbol": "WUTZ",
   "description": "A valueless fun and learning token on Solana Devnet. Devnet only / no monetary value.",
-  "image": "https://wutz-io.github.io/wutzcoin/wutzcoin-token.png",
-  "external_url": "https://wutz-io.github.io/wutzcoin/",
+  "image": "https://coin.wutz.io/wutzcoin-token.png",
+  "external_url": "https://coin.wutz.io/",
   "attributes": [
     { "trait_type": "Network", "value": "Solana Devnet" },
     { "trait_type": "Purpose", "value": "Fun and learning" },
@@ -13,7 +13,7 @@
     "category": "image",
     "files": [
       {
-        "uri": "https://wutz-io.github.io/wutzcoin/wutzcoin-token.png",
+        "uri": "https://coin.wutz.io/wutzcoin-token.png",
         "type": "image/png"
       }
     ]
